@@ -1,20 +1,9 @@
 <script setup lang="ts">
 import { ref } from "vue";
-import { useRouter } from "vue-router";
-import { useAuth } from "vue-clerk";
 import { useParallax } from "@vueuse/core";
-
-const router = useRouter();
-const { isSignedIn } = useAuth();
 
 const targetRef = ref(null);
 const { tilt, roll } = useParallax(targetRef);
-
-const navigateToLogin = () => {
-  if (isSignedIn.value) {
-    router.push("/dashboard");
-  }
-};
 </script>
 
 <template>
