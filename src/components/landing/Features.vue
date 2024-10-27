@@ -32,10 +32,10 @@ const features = ref([
   <div id="features" class="py-24">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="text-center mb-16">
-        <h2 class="text-3xl font-bold text-gray-900">
+        <h2 class="text-3xl font-bold text-gray-900 dark:text-light">
           Todo lo que necesitas para gestionar eventos universitarios
         </h2>
-        <p class="mt-4 text-xl text-gray-600">
+        <p class="mt-4 text-xl text-gray-600 dark:text-muted">
           Herramientas potentes diseñadas específicamente para la gestión de eventos académicos
         </p>
       </div>

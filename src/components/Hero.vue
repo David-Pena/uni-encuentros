@@ -28,7 +28,7 @@ const { tilt, roll } = useParallax(targetRef);
           href="javascript:void(0)"
           class="bg-primary hover:bg-primary-light text-light px-8 py-3 rounded-full text-lg transition-colors inline-flex items-center group font-bold"
         >
-          Ingresar
+          Demo
           <svg
             xmlns="http://www.w3.org/2000/svg"
             class="h-5 w-5 ml-2 group-hover:translate-x-1 transition-transform"

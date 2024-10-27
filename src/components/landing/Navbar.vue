@@ -10,9 +10,9 @@ import ThemeToggle from "../ThemeToggle.vue";
         <div class="flex items-center">
           <div class="flex-shrink-0 flex items-center">
             <span
-              class="ml-2 text-xl font-bold text-gray-900 bg-gradient-to-r from-primary-600 to-secondary-600 bg-clip-text"
+              class="ml-2 text-xl font-bold text-gray-900 dark:text-light bg-gradient-to-r from-primary-600 to-secondary-600 bg-clip-text"
             >
-              Uni<span class="text-primary">Encuentros</span>
+              Uni<span class="text-primary-light">Encuentros</span>
             </span>
           </div>
         </div>
@@ -28,7 +28,7 @@ import ThemeToggle from "../ThemeToggle.vue";
           </SignedOut>
           <SignedIn>
             <router-link to="/dashboard" class="btn btn-primary mr-4">
-              Panel de Control
+              Ingresar
             </router-link>
             <UserButton afterSignOutUrl="/" />
           </SignedIn>

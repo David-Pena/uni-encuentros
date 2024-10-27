@@ -1,45 +1,46 @@
 <script setup lang="ts">
-import { ref } from 'vue'
+import { ref } from "vue";
 
 const userProfile = ref({
-  name: 'Dr. Smith',
-  department: 'Computer Science',
-  email: 'smith@university.edu',
-  about: 'Professor of Computer Science with focus on Machine Learning and Artificial Intelligence.',
-  avatar: 'https://api.dicebear.com/7.x/avataaars/svg?seed=Felix'
-})
+  name: "Dr. Smith",
+  department: "Computer Science",
+  email: "smith@university.edu",
+  about:
+    "Professor of Computer Science with focus on Machine Learning and Artificial Intelligence.",
+  avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=Felix",
+});
 
-const newAvatar = ref<File | null>(null)
-const previewAvatar = ref(userProfile.value.avatar)
-const showSuccessMessage = ref(false)
+const newAvatar = ref<File | null>(null);
+const previewAvatar = ref(userProfile.value.avatar);
+const showSuccessMessage = ref(false);
 
 const handleAvatarChange = (event: Event) => {
-  const input = event.target as HTMLInputElement
+  const input = event.target as HTMLInputElement;
   if (input.files && input.files[0]) {
-    const file = input.files[0]
-    
+    const file = input.files[0];
+
     // Check file size (max 2MB)
     if (file.size > 2 * 1024 * 1024) {
-      alert('Image size should be less than 2MB')
-      return
+      alert("Image size should be less than 2MB");
+      return;
     }
-    
-    newAvatar.value = file
-    const reader = new FileReader()
+
+    newAvatar.value = file;
+    const reader = new FileReader();
     reader.onload = (e) => {
-      previewAvatar.value = e.target?.result as string
-    }
-    reader.readAsDataURL(file)
+      previewAvatar.value = e.target?.result as string;
+    };
+    reader.readAsDataURL(file);
   }
-}
+};
 
 const saveProfile = () => {
   // Here you would typically make an API call to update the profile
-  showSuccessMessage.value = true
+  showSuccessMessage.value = true;
   setTimeout(() => {
-    showSuccessMessage.value = false
-  }, 3000)
-}
+    showSuccessMessage.value = false;
+  }, 3000);
+};
 </script>
 
 <template>
@@ -56,7 +57,9 @@ const saveProfile = () => {
               alt="Profile"
               class="w-32 h-32 rounded-lg object-cover"
             />
-            <label class="absolute inset-0 flex items-center justify-center bg-black bg-opacity-50 text-white opacity-0 group-hover:opacity-100 rounded-lg cursor-pointer transition-opacity duration-200">
+            <label
+              class="absolute inset-0 flex items-center justify-center bg-black bg-opacity-50 text-white opacity-0 group-hover:opacity-100 rounded-lg cursor-pointer transition-opacity duration-200"
+            >
               <span class="text-sm font-medium">Change Photo</span>
               <input
                 type="file"
@@ -66,12 +69,10 @@ const saveProfile = () => {
               />
             </label>
           </div>
-          
+
           <div class="flex-1">
             <h3 class="text-lg font-medium text-gray-900">Profile Photo</h3>
-            <p class="mt-1 text-sm text-gray-500">
-              JPG, PNG or GIF (max. 2MB)
-            </p>
+            <p class="mt-1 text-sm text-gray-500">JPG, PNG or GIF (max. 2MB)</p>
             <div class="mt-4">
               <label class="btn btn-secondary cursor-pointer inline-block">
                 <span>Upload new photo</span>
@@ -90,7 +91,7 @@ const saveProfile = () => {
       <!-- Profile Information -->
       <div class="card p-6 space-y-6">
         <h3 class="text-lg font-medium text-gray-900">Profile Information</h3>
-        
+
         <div class="grid grid-cols-2 gap-6">
           <div>
             <label class="block text-sm font-medium text-gray-700">Full Name</label>
@@ -141,12 +142,9 @@ const saveProfile = () => {
       >
         Profile updated successfully!
       </div>
-
       <!-- Save Button -->
       <div class="flex justify-end">
-        <button type="submit" class="btn btn-primary">
-          Save Changes
-        </button>
+        <button type="submit" class="btn btn-primary">Save Changes</button>
       </div>
     </form>
   </div>

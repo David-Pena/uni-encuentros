@@ -18,7 +18,7 @@ const emits = defineEmits(["toggle"]);
   <button
     @click="emits('toggle')"
     class="p-4 rounded-xl border-2 transition-all duration-200 flex items-center gap-4 hover:shadow-md w-full"
-    :class="[isSelected ? 'border-primary-500 bg-primary-50' : 'border-gray-200']"
+    :class="[isSelected ? 'border-primary-light' : 'border-gray-200']"
   >
     <img :src="presenter.avatar" :alt="presenter.name" class="w-16 h-16 rounded-full" />
     <div class="text-left">

@@ -5,7 +5,7 @@ import EventActionsPopover from "../components/EventActionsPopover.vue";
 const selectedType = ref("all");
 
 const eventTypes = [
-  { id: "all", name: "All Events" },
+  { id: "all", name: "Todos" },
   { id: "seminario", name: "Seminario", icon: "🎓" },
   { id: "charla", name: "Charla", icon: "💡" },
   { id: "presentacion", name: "Presentación", icon: "📊" },
@@ -14,12 +14,12 @@ const eventTypes = [
 const events = ref([
   {
     id: 1,
-    title: "Advanced Machine Learning Seminar",
+    title: "Seminario Avanzado de Machine Learning",
     type: "seminario",
-    goal: "Join us for an engaging seminar on the latest advances in machine learning.",
+    goal: "Únete a un seminario interactivo sobre los últimos avances en machine learning.",
     date: "2024-03-20",
     time: "14:00",
-    location: "Computer Science Building, Room 401",
+    location: "Edificio de Ciencias de la Computación, Sala 401",
     presenters: [
       { name: "Dr. Jane Smith", role: "presenter" },
       { name: "Prof. John Doe", role: "organizer" },
@@ -28,13 +28,16 @@ const events = ref([
   },
   {
     id: 2,
-    title: "Research Methodology Workshop",
+    title: "Taller de Metodología de Investigación",
     type: "charla",
-    goal: "Learn essential research methodologies for academic success.",
+    goal: "Aprende metodologías esenciales para el éxito académico.",
     date: "2024-03-25",
     time: "10:00",
     location: "Online",
-    presenters: [{ name: "Dr. Alice Johnson", role: "presenter" }],
+    presenters: [
+      { name: "Dr. Alice Johnson", role: "presenter" },
+      { name: "Prof. John Doe", role: "organizer" },
+    ],
     attendees: 30,
   },
 ]);
@@ -66,7 +69,7 @@ const handleEventAction = (eventId: number, action: string) => {
 <template>
   <div class="space-y-8">
     <div class="flex justify-between items-center">
-      <h1 class="page-title">University Events</h1>
+      <h1 class="page-title">Eventos</h1>
       <RouterLink to="/dashboard/create" class="btn btn-primary">
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -80,7 +83,7 @@ const handleEventAction = (eventId: number, action: string) => {
             clip-rule="evenodd"
           />
         </svg>
-        Create Event
+        Crear Evento
       </RouterLink>
     </div>
 
@@ -103,13 +106,18 @@ const handleEventAction = (eventId: number, action: string) => {
 
     <div class="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
       <div v-for="event in filteredEvents" :key="event.id" class="card p-6 flex flex-col">
-        <div class="flex justify-between items-start mb-4">
-          <div class="space-y-1">
-            <h3 class="text-xl font-semibold text-gray-800 line-clamp-2">{{ event.title }}</h3>
-            <p class="text-sm text-gray-500 line-clamp-2">{{ event.goal }}</p>
+        <!-- Replace the existing card header with this updated version -->
+        <div class="flex items-start gap-4 mb-4">
+          <div class="space-y-1 flex-1 min-w-0">
+            <h3 class="text-xl font-semibold text-gray-800 dark:text-gray-100 line-clamp-2">
+              {{ event.title }}
+            </h3>
+            <p class="text-sm text-gray-500 dark:text-gray-400 line-clamp-2">
+              {{ event.goal }}
+            </p>
           </div>
           <span
-            class="px-3 py-1 rounded-full text-xs font-medium whitespace-nowrap flex items-center gap-1 bg-primary-100 text-primary-800"
+            class="flex-shrink-0 px-3 py-1 rounded-full text-xs font-medium whitespace-nowrap flex items-center gap-1 border-[1.5px] border-primary-light"
           >
             {{ getTypeIcon(event.type) }} {{ getTypeName(event.type) }}
           </span>
@@ -167,10 +175,10 @@ const handleEventAction = (eventId: number, action: string) => {
               fill="currentColor"
             >
               <path
-                d="M13 6a3 3 0 11-6 0 3 3 0 016 0zM18 8a2 2 0 11-4 0 2 2 0 014 0zM14 15a4 4 0 00-8 0v3h8v-3zM6 8a2 2 0 11-4 0 2 2 0 014 0zM16 18v-3a5.972 5.972 0 00-.75-2.906A3.005 3.005 0 0119 15v3h-3zM4.75 12.094A5.973 5.973 0 004 15v3H1v-3a3 3 0 013.75-2.906z"
+                d="M13 6a3 3 0 11-6 0 3 3 0 016 0zM18 8a2 2 0 11-4 0 2 2 0 014 0zM14 15a4 4 0 00-8 0v3h8v-3zM6 8a2 2 0 11-4 0 2 2 0 014 0zM16 18v-3a5.972 5.973 0 00-.75-2.906A3.005 3.005 0 0119 15v3h-3zM4.75 12.094A5.973 5.973 0 004 15v3H1v-3a3 3 0 013.75-2.906z"
               />
             </svg>
-            <span>{{ event.attendees }} Attendees</span>
+            <span>{{ event.attendees }} Asistentes</span>
           </div>
         </div>
 
@@ -179,9 +187,9 @@ const handleEventAction = (eventId: number, action: string) => {
             :to="`dashboard/preview/${event.id}`"
             class="flex-1 btn bg-gray-100 text-gray-700 hover:bg-gray-200 justify-center"
           >
-            Preview
+            Previsualizar
           </RouterLink>
-          <button class="flex-1 btn btn-primary justify-center">Edit</button>
+          <button class="flex-1 btn btn-primary justify-center">Editar</button>
           <EventActionsPopover @select="(action) => handleEventAction(event.id, action)" />
         </div>
       </div>
