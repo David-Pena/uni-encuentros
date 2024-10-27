@@ -1,52 +1,52 @@
 <script setup lang="ts">
-import { ref } from 'vue'
-import { RouterLink, useRoute } from 'vue-router'
-import { useUser } from 'vue-clerk'
-import ProfilePopup from './ProfilePopup.vue'
+import { ref } from "vue";
+import { RouterLink, useRoute } from "vue-router";
+import { useUser } from "vue-clerk";
+import ProfilePopup from "./ProfilePopup.vue";
 
-const route = useRoute()
-const { user } = useUser()
-const showProfilePopup = ref(false)
-const isCollapsed = ref(false)
+const route = useRoute();
+const { user } = useUser();
+const showProfilePopup = ref(false);
+const isCollapsed = ref(false);
 
 const navigation = [
   {
-    name: 'Events',
-    path: '/dashboard',
+    name: "Events",
+    path: "/dashboard",
     icon: `<svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
       <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
-    </svg>`
+    </svg>`,
   },
   {
-    name: 'New Event',
-    path: '/dashboard/create',
+    name: "New Event",
+    path: "/dashboard/create",
     icon: `<svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
       <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
-    </svg>`
+    </svg>`,
   },
   {
-    name: 'Presenters',
-    path: '/dashboard/presenters',
+    name: "Presenters",
+    path: "/dashboard/presenters",
     icon: `<svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
       <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
-    </svg>`
+    </svg>`,
   },
   {
-    name: 'Logos',
-    path: '/dashboard/logos',
+    name: "Logos",
+    path: "/dashboard/logos",
     icon: `<svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
       <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
-    </svg>`
+    </svg>`,
   },
   {
-    name: 'Settings',
-    path: '/dashboard/settings',
+    name: "Settings",
+    path: "/dashboard/settings",
     icon: `<svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
       <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />
       <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
-    </svg>`
-  }
-]
+    </svg>`,
+  },
+];
 </script>
 
 <template>
@@ -55,7 +55,7 @@ const navigation = [
     <div
       :class="[
         isCollapsed ? 'w-20' : 'w-64',
-        'bg-white border-r border-gray-200 flex flex-col transition-all duration-300 ease-in-out relative'
+        'bg-white border-r border-gray-200 flex flex-col transition-all duration-300 ease-in-out relative',
       ]"
     >
       <!-- Collapse Toggle Button -->
@@ -71,14 +71,21 @@ const navigation = [
           viewBox="0 0 24 24"
           stroke="currentColor"
         >
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M15 19l-7-7 7-7"
+          />
         </svg>
       </button>
 
       <!-- Logo -->
       <div class="h-16 flex items-center px-6 border-b border-gray-200">
         <RouterLink to="/dashboard" class="flex items-center space-x-2">
-          <div class="w-8 h-8 rounded-lg bg-gradient-to-r from-primary-500 to-secondary-500 flex items-center justify-center text-white font-bold">
+          <div
+            class="w-8 h-8 rounded-lg bg-gradient-to-r from-primary-500 to-secondary-500 flex items-center justify-center text-white font-bold"
+          >
             U
           </div>
           <span
@@ -101,15 +108,12 @@ const navigation = [
               ? 'bg-primary-50 text-primary-600'
               : 'text-gray-600 hover:bg-gray-50 hover:text-gray-900',
             'group flex items-center px-3 py-3 text-sm font-medium rounded-lg transition-colors duration-150',
-            isCollapsed ? 'justify-center' : ''
+            isCollapsed ? 'justify-center' : '',
           ]"
           :title="isCollapsed ? item.name : ''"
         >
           <span v-html="item.icon" class="flex-shrink-0"></span>
-          <span
-            v-if="!isCollapsed"
-            class="ml-3 transition-all duration-300"
-          >
+          <span v-if="!isCollapsed" class="ml-3 transition-all duration-300">
             {{ item.name }}
           </span>
         </RouterLink>
@@ -124,14 +128,16 @@ const navigation = [
         >
           <img
             :src="user?.imageUrl"
-            :alt="user?.fullName"
+            :alt="user?.fullName as string"
             class="w-8 h-8 rounded-full"
             :class="{ 'mr-3': !isCollapsed }"
           />
           <template v-if="!isCollapsed">
             <div class="flex-1 text-left">
               <div class="font-medium">{{ user?.fullName }}</div>
-              <div class="text-xs text-gray-500">{{ user?.primaryEmailAddress?.emailAddress }}</div>
+              <div class="text-xs text-gray-500">
+                {{ user?.primaryEmailAddress?.emailAddress }}
+              </div>
             </div>
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -140,7 +146,11 @@ const navigation = [
               viewBox="0 0 20 20"
               fill="currentColor"
             >
-              <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
+              <path
+                fill-rule="evenodd"
+                d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+                clip-rule="evenodd"
+              />
             </svg>
           </template>
         </button>

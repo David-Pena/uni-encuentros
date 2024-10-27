@@ -3,33 +3,24 @@ export default {
     "./index.html",
     "./src/**/*.{vue,js,ts,jsx,tsx}",
   ],
+  darkMode: 'class', // Enable dark mode with class strategy
   theme: {
     extend: {
       colors: {
-        primary: {
-          50: '#f0f9ff',
-          100: '#e0f2fe',
-          200: '#bae6fd',
-          300: '#7dd3fc',
-          400: '#38bdf8',
-          500: '#0ea5e9',
-          600: '#0284c7',
-          700: '#0369a1',
-          800: '#075985',
-          900: '#0c4a6e',
-        },
-        secondary: {
-          50: '#fdf4ff',
-          100: '#fae8ff',
-          200: '#f5d0fe',
-          300: '#f0abfc',
-          400: '#e879f9',
-          500: '#d946ef',
-          600: '#c026d3',
-          700: '#a21caf',
-          800: '#86198f',
-          900: '#701a75',
-        },
+        // Main brand colors
+        primary: '#2BAFFC',    // Blue - main actions, links, primary buttons
+        secondary: '#55C360',  // Green - success states, secondary actions
+        muted: '#94A3B8',     // Slate gray - disabled states, secondary text
+
+        // Monochrome scale
+        dark: '#010101',       // Black - text, dark backgrounds
+        light: '#F4F9FD',      // Polar - light backgrounds, cards
+
+        // You might need variations of these colors
+        'primary-light': '#54BFFD',  // Lighter blue for hover states
+        'primary-dark': '#1A9FEC',   // Darker blue for active states
+        'secondary-light': '#6DD076', // Lighter green for hover states
+        'secondary-dark': '#44B24F',  // Darker green for active states
       },
     },
   },
