@@ -24,12 +24,9 @@ import ThemeToggle from "../ThemeToggle.vue";
             >
               Iniciar Sesión
             </SignInButton>
-            <SignUpButton mode="modal" class="btn btn-primary"> Registrarse </SignUpButton>
           </SignedOut>
           <SignedIn>
-            <router-link to="/dashboard" class="btn btn-primary mr-4">
-              Ingresar
-            </router-link>
+            <router-link to="/dashboard" class="btn btn-primary mr-4"> Ingresar </router-link>
             <UserButton afterSignOutUrl="/" />
           </SignedIn>
           <ThemeToggle />
