@@ -44,7 +44,7 @@ const features = ref([
         <div
           v-for="feature in features"
           :key="feature.title"
-          class="p-6 bg-gray-50 rounded-xl border border-gray-100 hover:shadow-md transition-all duration-200"
+          class="p-6 bg-gray-50 dark:bg-light rounded-xl border border-gray-100 hover:shadow-md transition-all duration-200"
         >
           <div
             class="w-12 h-12 bg-gradient-to-r from-primary via-primary-light to-secondary rounded-lg flex items-center justify-center text-white mb-4"

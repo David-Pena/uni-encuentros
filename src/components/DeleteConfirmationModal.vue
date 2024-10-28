@@ -12,9 +12,9 @@ interface Emits {
 }
 
 withDefaults(defineProps<Props>(), {
-  title: "Delete Account",
+  title: "Eliminar cuenta",
   message:
-    "Are you sure you want to delete your account? All of your data will be permanently removed. This action cannot be undone.",
+    "¿Estás seguro de querer eliminar tu cuenta? Todos tus datos serán eliminados permanentemente. Esta acción no se puede deshacer.",
 });
 
 const emits = defineEmits<Emits>();
@@ -33,7 +33,7 @@ const handleConfirm = () => {
 <template>
   <div
     v-if="isOpen"
-    class="fixed inset-0 bg-gray-500 bg-opacity-75 flex items-center justify-center z-50"
+    class="fixed inset-0 bg-gray-500 dark:bg-gray-900 bg-opacity-75 dark:bg-opacity-75 flex items-center justify-center z-50"
   >
     <div class="bg-white dark:bg-gray-800 rounded-lg p-6 max-w-md w-full m-4">
       <div class="text-center">
@@ -63,10 +63,13 @@ const handleConfirm = () => {
           @click="handleCancel"
           class="btn bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-200 hover:bg-gray-200 dark:hover:bg-gray-600"
         >
-          Cancel
+          Cancelar
         </button>
-        <button @click="handleConfirm" class="btn bg-red-600 text-white hover:bg-red-700">
-          Delete Account
+        <button
+          @click="handleConfirm"
+          class="btn bg-red-50 dark:bg-red-700/50 text-red-600 dark:text-red-300 hover:bg-red-100 dark:hover:bg-red-800/50"
+        >
+          Eliminar cuenta
         </button>
       </div>
     </div>

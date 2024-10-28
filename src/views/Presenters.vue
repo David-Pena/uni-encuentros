@@ -112,7 +112,7 @@ const removePresenter = (id: string) => {
       <div class="mb-6">
         <div class="relative flex items-center">
           <svg
-            class="absolute left-3 h-5 w-5 text-gray-400 pointer-events-none"
+            class="absolute left-3 h-5 w-5 text-gray-400 dark:text-gray-500 pointer-events-none"
             xmlns="http://www.w3.org/2000/svg"
             viewBox="0 0 20 20"
             fill="currentColor"
@@ -127,43 +127,46 @@ const removePresenter = (id: string) => {
             v-model="searchQuery"
             type="text"
             placeholder="Buscar presentadores..."
-            class="input pl-10"
+            class="input w-full pl-10 pr-4"
+            style="padding-left: 2.5rem"
           />
         </div>
       </div>
 
       <div class="overflow-x-auto">
-        <table class="min-w-full divide-y divide-gray-200">
-          <thead class="bg-gray-50">
+        <table class="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
+          <thead class="bg-gray-50 dark:bg-gray-800">
             <tr>
               <th
-                class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider"
               >
                 Presentador
               </th>
               <th
-                class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider"
               >
                 Acerca de
               </th>
               <th
-                class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider"
               >
                 Total de Eventos
               </th>
               <th
-                class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider"
               >
                 Último Evento
               </th>
               <th
-                class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider"
               >
                 Acciones
               </th>
             </tr>
           </thead>
-          <tbody class="bg-white divide-y divide-gray-200">
+          <tbody
+            class="bg-white dark:bg-gray-800 divide-y divide-gray-200 dark:divide-gray-700"
+          >
             <tr v-for="presenter in filteredPresenters" :key="presenter.id">
               <td class="px-6 py-4 whitespace-nowrap">
                 <div class="flex items-center">
@@ -173,21 +176,25 @@ const removePresenter = (id: string) => {
                     class="h-10 w-10 rounded-full"
                   />
                   <div class="ml-4">
-                    <div class="text-sm font-medium text-gray-900">{{ presenter.name }}</div>
+                    <div class="text-sm font-medium text-gray-900 dark:text-gray-100">
+                      {{ presenter.name }}
+                    </div>
                   </div>
                 </div>
               </td>
               <td class="px-6 py-4">
-                <p class="text-sm text-gray-500 line-clamp-2">{{ presenter.about || "-" }}</p>
+                <p class="text-sm text-gray-500 dark:text-gray-400 line-clamp-2">
+                  {{ presenter.about || "-" }}
+                </p>
               </td>
               <td class="px-6 py-4 whitespace-nowrap">
                 <span
-                  class="px-2 py-1 text-xs font-medium bg-primary-100 text-primary-800 rounded-full"
+                  class="px-2 py-1 text-xs font-medium bg-primary-100 dark:bg-primary-900/50 text-primary-800 dark:text-primary-300 rounded-full"
                 >
                   {{ presenter.events }} eventos
                 </span>
               </td>
-              <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+              <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400">
                 {{
                   presenter.lastEvent
                     ? new Date(presenter.lastEvent).toLocaleDateString()
@@ -197,13 +204,13 @@ const removePresenter = (id: string) => {
               <td class="px-6 py-4 whitespace-nowrap text-sm font-medium space-x-3">
                 <button
                   @click="editPresenter(presenter)"
-                  class="text-primary-600 hover:text-primary-900"
+                  class="text-primary-600 dark:text-primary-400 hover:text-primary-900 dark:hover:text-primary-300"
                 >
                   Editar
                 </button>
                 <button
                   @click="removePresenter(presenter.id)"
-                  class="text-red-600 hover:text-red-900"
+                  class="text-red-600 dark:text-red-400 hover:text-red-900 dark:hover:text-red-300"
                 >
                   Eliminar
                 </button>

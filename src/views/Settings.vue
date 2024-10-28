@@ -39,14 +39,13 @@ const handleDeleteAccount = () => {
       <!-- Delete Account -->
       <div class="card p-6">
         <div class="space-y-2">
-          <h2 class="text-lg font-medium text-red-600 mb-5">Zona de Peligro</h2>
+          <h2 class="text-lg font-medium text-red-600 dark:text-red-400 mb-5">Zona de Peligro</h2>
           <p class="text-sm text-gray-500 dark:text-gray-400">
             Una vez que elimines tu cuenta, no podrás volver atrás. Por favor, ten cuidado.
           </p>
           <button
             @click="showDeleteConfirmation = true"
-            class="mt-4 btn bg-red-50 text-red-600 hover:bg-red-100 dark:bg-red-900/50 
-                   dark:text-red-400 dark:hover:bg-red-900"
+            class="mt-4 btn bg-red-50 dark:bg-red-700/50 text-red-600 dark:text-red-300 hover:bg-red-100 dark:hover:bg-red-800/50"
           >
             Eliminar cuenta
           </button>

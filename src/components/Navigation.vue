@@ -50,22 +50,22 @@ const navigation = [
 </script>
 
 <template>
-  <div class="flex h-screen bg-gray-50">
+  <div class="flex h-screen bg-gray-50 dark:bg-gray-900">
     <!-- Sidebar -->
     <div
       :class="[
         isCollapsed ? 'w-20' : 'w-64',
-        'bg-white border-r border-gray-200 flex flex-col transition-all duration-300 ease-in-out relative',
+        'bg-white dark:bg-gray-800 border-r border-gray-200 dark:border-gray-700 flex flex-col transition-all duration-300 ease-in-out relative',
       ]"
     >
       <!-- Collapse Toggle Button -->
       <button
         @click="isCollapsed = !isCollapsed"
-        class="absolute -right-3 top-8 bg-white border border-gray-200 rounded-full p-1.5 shadow-sm hover:shadow-md transition-all duration-200"
+        class="absolute -right-3 top-8 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-full p-1.5 shadow-sm hover:shadow-md transition-all duration-200"
       >
         <svg
           xmlns="http://www.w3.org/2000/svg"
-          class="h-4 w-4 text-gray-600"
+          class="h-4 w-4 text-gray-600 dark:text-gray-400"
           :class="{ 'rotate-180': isCollapsed }"
           fill="none"
           viewBox="0 0 24 24"
@@ -81,10 +81,10 @@ const navigation = [
       </button>
 
       <!-- Logo -->
-      <div class="h-16 flex items-center px-6 border-b border-gray-200">
+      <div class="h-16 flex items-center px-6 border-b border-gray-200 dark:border-gray-700">
         <RouterLink to="/dashboard" class="flex items-center space-x-2">
           <span
-            class="ml-2 text-xl font-bold text-gray-900 dark:text-light bg-gradient-to-r from-primary-600 to-secondary-600 bg-clip-text"
+            class="ml-2 text-xl font-bold text-gray-900 dark:text-gray-700 bg-gradient-to-r from-primary-600 to-secondary-600 bg-clip-text"
           >
             Uni<span v-if="!isCollapsed" class="text-primary-light">Encuentros</span>
           </span>
@@ -99,9 +99,9 @@ const navigation = [
           :to="item.path"
           :class="[
             route.path === item.path
-              ? 'bg-primary-50 text-primary-600'
-              : 'text-gray-600 hover:bg-gray-50 hover:text-gray-900',
-            'group flex items-center px-3 py-3 text-sm font-medium rounded-lg transition-colors duration-150',
+              ? 'bg-primary-50 dark:bg-primary-900/50 text-primary-600 dark:text-primary-300'
+              : 'text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-700 hover:text-gray-900 dark:hover:text-gray-100',
+            'group flex items-center px-3 py-3 text-sm font-medium rounded-lg transition-colors duration-75',
             isCollapsed ? 'justify-center' : '',
           ]"
           :title="isCollapsed ? item.name : ''"
@@ -114,10 +114,10 @@ const navigation = [
       </nav>
 
       <!-- Profile Section -->
-      <div class="border-t border-gray-200 p-4 relative">
+      <div class="border-t border-gray-200 dark:border-gray-700 p-4 relative">
         <button
           @click="showProfilePopup = !showProfilePopup"
-          class="w-full flex items-center px-3 py-3 text-sm font-medium text-gray-600 hover:bg-gray-50 hover:text-gray-900 rounded-lg transition-colors duration-150"
+          class="w-full flex items-center px-3 py-3 text-sm font-medium text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-700 hover:text-gray-900 dark:hover:text-gray-100 rounded-lg transition-colors duration-75"
           :class="{ 'justify-center': isCollapsed }"
         >
           <img
@@ -128,8 +128,8 @@ const navigation = [
           />
           <template v-if="!isCollapsed">
             <div class="flex-1 text-left">
-              <div class="font-medium">{{ user?.fullName }}</div>
-              <div class="text-xs text-gray-500">
+              <div class="font-medium dark:text-gray-200">{{ user?.fullName }}</div>
+              <div class="text-xs text-gray-500 dark:text-gray-400">
                 {{ user?.primaryEmailAddress?.emailAddress }}
               </div>
             </div>
@@ -158,7 +158,7 @@ const navigation = [
 
     <!-- Main Content -->
     <div class="flex-1 flex flex-col overflow-hidden">
-      <main class="flex-1 overflow-y-auto bg-gray-50 px-6 py-8">
+      <main class="flex-1 overflow-y-auto bg-gray-50 dark:bg-gray-900 px-6 py-8">
         <slot></slot>
       </main>
     </div>

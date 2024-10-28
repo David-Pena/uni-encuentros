@@ -107,8 +107,8 @@ const formatSize = (bytes: number) => {
           />
         </svg>
 
-        <h3 class="mt-2 text-sm font-medium text-gray-900">Carga tus logos</h3>
-        <p class="mt-1 text-sm text-gray-500">Solo PNG, máximo 5MB por archivo</p>
+        <h3 class="mt-2 text-sm font-medium text-gray-900 dark:text-light">Carga tus logos</h3>
+        <p class="mt-1 text-sm text-gray-500 dark:text-gray-300">Solo PNG, máximo 5MB por archivo</p>
 
         <div class="mt-6">
           <label class="btn btn-primary cursor-pointer">
@@ -134,18 +134,18 @@ const formatSize = (bytes: number) => {
         <img
           :src="logo.url"
           :alt="logo.name"
-          class="w-full h-32 object-contain bg-gray-50 rounded-lg"
+          class="w-full h-32 object-contain bg-gray-50 dark:bg-transparent rounded-lg"
         />
         <div class="mt-4">
-          <h3 class="font-medium text-gray-900">{{ logo.name }}</h3>
-          <p class="text-sm text-gray-500">{{ formatSize(logo.size) }}</p>
-          <p class="text-sm text-gray-500">
+          <h3 class="font-medium text-gray-900 dark:text-light">{{ logo.name }}</h3>
+          <p class="text-sm text-gray-500 dark:text-gray-300">{{ formatSize(logo.size) }}</p>
+          <p class="text-sm text-gray-500 dark:text-gray-300">
             Cargado el {{ new Date(logo.uploadDate).toLocaleDateString() }}
           </p>
         </div>
         <button
           @click="removeLogo(logo.id)"
-          class="mt-4 w-full btn bg-red-50 text-red-600 hover:bg-red-100"
+          class="mt-4 w-full btn bg-red-50 dark:bg-red-700/50 text-red-600 dark:text-red-300 hover:bg-red-100 dark:hover:bg-red-800/50"
         >
           Eliminar
         </button>

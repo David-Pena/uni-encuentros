@@ -117,55 +117,65 @@ const isStepValid = computed(() => {
         <div class="flex mb-2 items-center justify-between">
           <div>
             <span
-              class="text-xs font-semibold inline-block py-1 uppercase rounded-full text-gray-700"
+              class="text-xs font-semibold inline-block py-1 uppercase rounded-full text-gray-700 dark:text-gray-300"
             >
               Paso {{ currentStep }} de {{ totalSteps }}
             </span>
           </div>
           <div class="text-right">
-            <span class="text-xs font-semibold inline-block text-primary-600">
+            <span
+              class="text-xs font-semibold inline-block text-primary-600 dark:text-primary-400"
+            >
               {{ Math.round(progress) }}%
             </span>
           </div>
         </div>
-        <div class="overflow-hidden h-2 mb-4 text-xs flex rounded bg-gray-200">
+        <div
+          class="overflow-hidden h-2 mb-4 text-xs flex rounded bg-gray-200 dark:bg-gray-700"
+        >
           <div
             :style="{ width: `${progress}%` }"
-            class="shadow-none flex flex-col text-center whitespace-nowrap text-white justify-center bg-primary transition-all duration-500"
+            class="shadow-none flex flex-col text-center whitespace-nowrap text-white justify-center bg-primary dark:bg-primary-600 transition-all duration-500"
           ></div>
         </div>
       </div>
     </div>
 
-    <div class="card p-8">
+    <div class="card p-8 bg-white dark:bg-gray-800">
       <!-- Step 1: Event Name -->
       <div v-if="currentStep === 1" class="space-y-6">
-        <h2 class="text-2xl font-bold text-gray-800">¿Cómo se llama tu evento?</h2>
+        <h2 class="text-2xl font-bold text-gray-800 dark:text-gray-100">
+          ¿Cómo se llama tu evento?
+        </h2>
         <div class="space-y-2">
           <input
             v-model="eventData.title"
             type="text"
             class="input text-2xl font-medium"
             placeholder="Ingresa un título atractivo..."
-            :class="{ 'ring-2 ring-green-500': eventData.title.length >= 3 }"
+            :class="{
+              'ring-2 ring-green-500 dark:ring-green-400': eventData.title.length >= 3,
+            }"
           />
-          <p class="text-sm text-gray-500">Hazlo claro y memorable</p>
+          <p class="text-sm text-gray-500 dark:text-gray-400">Hazlo claro y memorable</p>
         </div>
       </div>
 
       <!-- Step 2: Event Type -->
       <div v-if="currentStep === 2" class="space-y-6">
-        <h2 class="text-2xl font-bold text-gray-800">¿Qué tipo de evento es este?</h2>
+        <h2 class="text-2xl font-bold text-gray-800 dark:text-gray-100">
+          ¿Qué tipo de evento es este?
+        </h2>
         <div class="grid grid-cols-3 gap-4">
           <button
             v-for="type in eventTypes"
             :key="type.id"
             @click="eventData.type = type.id"
-            class="aspect-square p-6 rounded-xl border-2 transition-all duration-200 flex flex-col items-center justify-center gap-4 hover:shadow-lg"
+            class="aspect-square p-6 rounded-xl border-2 transition-all duration-200 flex flex-col items-center justify-center gap-4 hover:shadow-lg dark:hover:shadow-gray-900"
             :class="[
               eventData.type === type.id
-                ? 'border-primary-light text-primary-700'
-                : 'border-gray-200',
+                ? 'border-primary-light dark:border-primary-400 text-primary-700 dark:text-primary-300'
+                : 'border-gray-200 dark:border-gray-700',
             ]"
           >
             <span class="text-4xl">{{ type.icon }}</span>
@@ -176,18 +186,25 @@ const isStepValid = computed(() => {
 
       <!-- Step 3: Event Goal -->
       <div v-if="currentStep === 3" class="space-y-6">
-        <h2 class="text-2xl font-bold text-gray-800">¿Cuál es el objetivo de este evento?</h2>
+        <h2 class="text-2xl font-bold text-gray-800 dark:text-gray-100">
+          ¿Cuál es el objetivo de este evento?
+        </h2>
         <div class="space-y-2">
           <textarea
             v-model="eventData.goal"
             rows="4"
             class="input resize-none"
             placeholder="Describe los objetivos principales y lo que los asistentes aprenderán o lograrán..."
-            :class="{ 'ring-2 ring-green-500': eventData.goal.length >= 10 }"
+            :class="{
+              'ring-2 ring-green-500 dark:ring-green-400': eventData.goal.length >= 10,
+            }"
           ></textarea>
-          <p class="text-sm text-gray-500">
+          <p class="text-sm text-gray-500 dark:text-gray-400">
             {{ eventData.goal.length }}/500 caracteres
-            <span v-if="eventData.goal.length < 10" class="text-yellow-600">
+            <span
+              v-if="eventData.goal.length < 10"
+              class="text-yellow-600 dark:text-yellow-500"
+            >
               (mínimo 10 caracteres)
             </span>
           </p>
@@ -196,15 +213,25 @@ const isStepValid = computed(() => {
 
       <!-- Step 4: Date and Time -->
       <div v-if="currentStep === 4" class="space-y-6">
-        <h2 class="text-2xl font-bold text-gray-800">¿Cuándo es tu evento?</h2>
+        <h2 class="text-2xl font-bold text-gray-800 dark:text-gray-100">
+          ¿Cuándo es tu evento?
+        </h2>
         <div class="grid grid-cols-2 gap-6">
           <div class="space-y-2">
-            <label class="block text-sm font-medium text-gray-700">Fecha</label>
-            <input v-model="eventData.date" type="date" class="input" />
+            <label class="block text-sm font-medium text-gray-700 dark:text-gray-300">Fecha</label>
+            <input 
+              v-model="eventData.date" 
+              type="date" 
+              class="input [&::-webkit-calendar-picker-indicator]:dark:invert" 
+            />
           </div>
           <div class="space-y-2">
-            <label class="block text-sm font-medium text-gray-700">Hora</label>
-            <input v-model="eventData.time" type="time" class="input" />
+            <label class="block text-sm font-medium text-gray-700 dark:text-gray-300">Hora</label>
+            <input 
+              v-model="eventData.time" 
+              type="time" 
+              class="input [&::-webkit-calendar-picker-indicator]:dark:invert" 
+            />
           </div>
         </div>
       </div>
@@ -212,7 +239,9 @@ const isStepValid = computed(() => {
       <!-- Step 5: Presenters -->
       <div v-if="currentStep === 5" class="space-y-6">
         <div class="flex justify-between items-center">
-          <h2 class="text-2xl font-bold text-gray-800">¿Quiénes son los presentadores?</h2>
+          <h2 class="text-2xl font-bold text-gray-800 dark:text-gray-100">
+            ¿Quiénes son los presentadores?
+          </h2>
           <button
             v-if="!showNewPresenterForm"
             @click="showNewPresenterForm = true"
@@ -222,6 +251,7 @@ const isStepValid = computed(() => {
           </button>
         </div>
 
+        <!-- NewPresenterForm component handles its own dark mode -->
         <NewPresenterForm
           v-if="showNewPresenterForm"
           @add="addNewPresenter"
@@ -240,11 +270,13 @@ const isStepValid = computed(() => {
       </div>
 
       <!-- Navigation Buttons -->
-      <div class="flex justify-between mt-8 pt-6 border-t border-gray-100">
+      <div
+        class="flex justify-between mt-8 pt-6 border-t border-gray-100 dark:border-gray-700"
+      >
         <button
           v-if="currentStep > 1"
           @click="prevStep"
-          class="btn bg-gray-100 text-gray-700 hover:bg-gray-200"
+          class="btn bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-600"
         >
           Regresar
         </button>
