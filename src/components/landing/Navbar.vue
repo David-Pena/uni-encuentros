@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { ref } from "vue";
-import { SignedOut, SignedIn, UserButton, SignInButton } from "vue-clerk";
+import { SignedIn, UserButton } from "vue-clerk";
 import ThemeToggle from "../ThemeToggle.vue";
 
 const isMenuOpen = ref(false);
@@ -16,14 +16,14 @@ const closeMenu = () => {
 };
 
 const scrollToSection = (sectionId: string) => {
-  const element = document.getElementById(sectionId)
+  const element = document.getElementById(sectionId);
   if (element) {
-    element.scrollIntoView({ 
-      behavior: 'smooth',
-      block: 'start'
-    })
+    element.scrollIntoView({
+      behavior: "smooth",
+      block: "start",
+    });
   }
-}
+};
 </script>
 
 <template>
@@ -60,14 +60,6 @@ const scrollToSection = (sectionId: string) => {
 
         <!-- Right side buttons -->
         <div class="hidden md:flex items-center space-x-4">
-          <SignedOut>
-            <SignInButton
-              mode="modal"
-              class="btn bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-200 hover:bg-gray-200 dark:hover:bg-gray-600"
-            >
-              Iniciar Sesión
-            </SignInButton>
-          </SignedOut>
           <SignedIn>
             <router-link to="/dashboard" class="btn btn-primary"> Ingresar </router-link>
             <UserButton afterSignOutUrl="/" />
@@ -129,19 +121,14 @@ const scrollToSection = (sectionId: string) => {
           :key="item.name"
           :href="item.href"
           class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-800"
-          @click.prevent="scrollToSection(item.href.replace('#', '') || 'inicio'); closeMenu()"
+          @click.prevent="
+            scrollToSection(item.href.replace('#', '') || 'inicio');
+            closeMenu();
+          "
         >
           {{ item.name }}
         </a>
         <div class="pt-4 pb-3 border-t border-gray-200 dark:border-gray-700">
-          <SignedOut>
-            <SignInButton
-              mode="modal"
-              class="w-full btn bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-200 hover:bg-gray-200 dark:hover:bg-gray-600"
-            >
-              Iniciar Sesión
-            </SignInButton>
-          </SignedOut>
           <SignedIn>
             <router-link
               to="/dashboard"
