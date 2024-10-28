@@ -29,31 +29,31 @@ const features = ref([
 </script>
 
 <template>
-  <div id="features" class="py-24">
+  <div id="about" class="py-16 md:py-24">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="text-center mb-16">
-        <h2 class="text-3xl font-bold text-gray-900 dark:text-light">
+      <div class="text-center mb-12 md:mb-16">
+        <h2 class="text-3xl md:text-4xl font-bold text-gray-900 dark:text-light">
           Todo lo que necesitas para gestionar eventos universitarios
         </h2>
-        <p class="mt-4 text-xl text-gray-600 dark:text-muted">
+        <p class="mt-4 text-lg md:text-xl text-gray-600 dark:text-muted">
           Herramientas potentes diseñadas específicamente para la gestión de eventos académicos
         </p>
       </div>
 
-      <div class="grid md:grid-cols-3 gap-8">
+      <div class="grid md:grid-cols-3 gap-6 md:gap-8">
         <div
           v-for="feature in features"
           :key="feature.title"
-          class="p-6 bg-gray-50 dark:bg-light rounded-xl border border-gray-100 hover:shadow-md transition-all duration-200"
+          class="p-6 bg-gray-50 dark:bg-gray-900 rounded-xl border border-gray-100 dark:border-gray-800 hover:shadow-md transition-all duration-200"
         >
           <div
             class="w-12 h-12 bg-gradient-to-r from-primary via-primary-light to-secondary rounded-lg flex items-center justify-center text-white mb-4"
             v-html="feature.icon"
           ></div>
-          <h3 class="text-xl font-semibold text-gray-900 mb-2">
+          <h3 class="text-xl font-semibold text-gray-900 dark:text-light mb-2">
             {{ feature.title }}
           </h3>
-          <p class="text-gray-600">
+          <p class="text-gray-600 dark:text-muted">
             {{ feature.description }}
           </p>
         </div>

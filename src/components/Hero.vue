@@ -7,26 +7,29 @@ const { tilt, roll } = useParallax(targetRef);
 </script>
 
 <template>
-  <div class="relative min-h-screen flex items-center justify-center overflow-hidden">
+  <div
+    id="hero"
+    class="relative min-h-screen flex items-center justify-center overflow-hidden px-4 sm:px-6 lg:px-8"
+  >
     <div
       ref="targetRef"
-      class="relative text-center px-4 mt-16 z-20"
+      class="relative text-center z-20 max-w-4xl mx-auto pt-16 md:pt-20"
       :style="{
         transform: `perspective(1000px) rotateX(${tilt * 10}deg) rotateY(${roll * 10}deg)`,
         transition: 'transform 0.3s ease-out',
       }"
     >
-      <h2 class="text-6xl md:text-7xl font-bold text-accent-white mb-6 drop-shadow-md">
+      <h2 class="text-5xl md:text-7xl font-bold text-accent-white mb-6 drop-shadow-md">
         Uni<span class="text-primary">Encuentros</span>
       </h2>
-      <p class="text-xl md:text-2xl text-accent-gray mb-12 max-w-2xl mx-auto">
+      <p class="text-lg md:text-2xl text-accent-gray mb-12 max-w-2xl mx-auto">
         Transformando la gestión de eventos académicos con herramientas intuitivas y eficientes
         para una experiencia universitaria más conectada.
       </p>
       <div class="space-x-4">
         <a
-          href="javascript:void(0)"
-          class="bg-primary hover:bg-primary-light text-light px-8 py-3 rounded-full text-lg transition-colors inline-flex items-center group font-bold"
+          href="#demo"
+          class="bg-primary hover:bg-primary-light text-light px-6 md:px-8 py-3 rounded-full text-base md:text-lg transition-colors inline-flex items-center group font-bold"
         >
           Demo
           <svg
