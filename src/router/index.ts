@@ -3,12 +3,12 @@ import { useAuth } from 'vue-clerk'
 import Landing from '../views/Landing.vue'
 import EventList from '../views/EventList.vue'
 import EventCreate from '../views/EventCreate.vue'
-import EventPreview from '../views/EventPreview.vue'
 import Presenters from '../views/Presenters.vue'
 import LogoManager from '../views/LogoManager.vue'
 import Settings from '../views/Settings.vue'
-import Profile from '../views/Profile.vue'
 import DashboardLayout from '../layouts/DashboardLayout.vue'
+import EventInvitation from '../views/EventInvitation.vue'
+import PreviewView from '../views/Preview.vue'
 
 const router = createRouter({
   history: createWebHistory(),
@@ -37,7 +37,7 @@ const router = createRouter({
         {
           path: 'preview/:id',
           name: 'preview',
-          component: EventPreview
+          component: PreviewView
         },
         {
           path: 'presenters',
@@ -53,24 +53,25 @@ const router = createRouter({
           path: 'settings',
           name: 'settings',
           component: Settings
-        },
-        {
-          path: 'profile',
-          name: 'profile',
-          component: Profile
         }
       ]
+    },
+    {
+      path: '/invite/:id',
+      name: 'invitation',
+      component: EventInvitation,
+      meta: { requiresAuth: false }
     }
   ]
 })
 
 router.beforeEach(async (to) => {
   const { isSignedIn } = useAuth()
-  
+
   if (to.meta.requiresAuth && !isSignedIn.value) {
     return { name: 'landing' }
   }
-  
+
   if (isSignedIn.value && to.name === 'landing') {
     return { name: 'events' }
   }

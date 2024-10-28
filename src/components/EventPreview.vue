@@ -2,28 +2,20 @@
 import { ref, computed } from "vue";
 import html2canvas from "html2canvas";
 import { jsPDF } from "jspdf";
+import type { Event } from "../types/event";
+
+interface Props {
+  event: Event;
+  showActions?: boolean; // Controls visibility of export/share buttons
+  mode?: "preview" | "invitation"; // Different modes for different contexts
+}
+
+const props = withDefaults(defineProps<Props>(), {
+  showActions: false,
+  mode: "preview",
+});
 
 const previewRef = ref<HTMLElement | null>(null);
-
-const event = ref({
-  title: "Advanced Machine Learning Seminar",
-  description:
-    "Join us for an engaging seminar on the latest advances in machine learning and their applications in real-world scenarios.",
-  date: "March 20, 2024",
-  time: "2:00 PM - 4:00 PM",
-  location: {
-    building: "Computer Science Building",
-    room: "Room 401",
-  },
-  logo: null,
-  participants: [
-    { name: "Dr. Jane Smith", role: "presenter", status: "accepted" },
-    { name: "Prof. John Doe", role: "organizer", status: "accepted" },
-    { name: "Dr. Alice Johnson", role: "attendee", status: "accepted" },
-    { name: "Dr. Bob Wilson", role: "attendee", status: "accepted" },
-    { name: "Dr. Carol Brown", role: "attendee", status: "accepted" },
-  ],
-});
 
 const exportAsPDF = async () => {
   if (!previewRef.value) return;
@@ -50,23 +42,36 @@ const exportAsImage = async () => {
   link.click();
 };
 
-const logos = ref([{ id: "1", url: "/default-logo.png", name: "Default Logo" }]);
-
-const selectedLogo = ref(event.value.logo);
-
 const presentersAndOrganizers = computed(() =>
-  event.value.participants.filter((p) => ["presenter", "organizer"].includes(p.role))
+  props.event.participants.filter((p) => ["presenter", "organizer"].includes(p.role))
 );
 
 const attendeeCount = computed(
-  () => event.value.participants.filter((p) => p.role === "attendee").length
+  () =>
+    props.event.participants.filter((p) => p.role === "attendee" && p.status === "accepted")
+      .length
 );
+
+const shareUrl = computed(() => {
+  const baseUrl = window.location.origin;
+  return `${baseUrl}/invite/${props.event.id}`;
+});
+
+const copyShareLink = async () => {
+  try {
+    await navigator.clipboard.writeText(shareUrl.value);
+    // You might want to add a toast notification here
+  } catch (err) {
+    console.error("Failed to copy:", err);
+  }
+};
 </script>
 
 <template>
   <div class="max-w-4xl mx-auto space-y-8">
-    <div class="flex justify-between items-center">
-      <h1 class="page-title">Previsualización de Evento</h1>
+    <!-- Only show actions in preview mode with showActions prop -->
+    <div v-if="showActions" class="flex justify-between items-center">
+      <h1 class="page-title">{{ mode === "preview" ? "Previsualización" : "Invitación" }}</h1>
       <div class="flex space-x-4 mb-6">
         <button @click="exportAsImage" class="btn btn-secondary">
           <svg
@@ -98,14 +103,30 @@ const attendeeCount = computed(
           </svg>
           Exportar PDF
         </button>
+        <button @click="copyShareLink" class="btn btn-secondary">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            class="h-5 w-5"
+            viewBox="0 0 20 20"
+            fill="currentColor"
+          >
+            <path
+              d="M15 8a3 3 0 10-2.977-2.63l-4.94 2.47a3 3 0 100 4.319l4.94 2.47a3 3 0 10.895-1.789l-4.94-2.47a3.027 3.027 0 000-.74l4.94-2.47C13.456 7.68 14.19 8 15 8z"
+            />
+          </svg>
+          Share Link
+        </button>
       </div>
     </div>
 
-    <div ref="previewRef" class="card p-8 bg-gradient-to-br from-white to-gray-50">
+    <div
+      ref="previewRef"
+      class="card p-8 bg-gradient-to-br from-white to-gray-50 dark:from-gray-800 dark:to-gray-900"
+    >
       <div class="text-center mb-12">
         <div class="mb-6">
-          <div v-if="selectedLogo" class="h-16">
-            <img :src="selectedLogo" alt="Event Logo" class="h-full mx-auto object-contain" />
+          <div v-if="event.logo" class="h-16">
+            <img :src="event.logo" alt="Event Logo" class="h-full mx-auto object-contain" />
           </div>
           <div
             v-else
@@ -119,18 +140,22 @@ const attendeeCount = computed(
         >
           {{ event.title }}
         </h2>
-        <p class="text-xl text-gray-600">Te invitamos a asistir</p>
+        <p class="text-xl text-gray-600 dark:text-gray-300">Te invitamos a asistir</p>
       </div>
 
       <div class="max-w-2xl mx-auto space-y-8">
-        <div class="text-center bg-gray-50 rounded-xl p-6 border border-gray-100">
-          <p class="text-lg text-gray-700 leading-relaxed">
-            {{ event.description }}
+        <div
+          class="text-center bg-gray-50 dark:bg-gray-800 rounded-xl p-6 border border-gray-100 dark:border-gray-700"
+        >
+          <p class="text-lg text-gray-700 dark:text-gray-300 leading-relaxed">
+            {{ event.goal }}
           </p>
         </div>
 
         <div class="grid grid-cols-2 gap-8">
-          <div class="text-center p-6 bg-primary-50 rounded-xl border border-primary-100">
+          <div
+            class="text-center p-6 bg-primary-50 dark:bg-primary-900/30 rounded-xl border border-primary-100 dark:border-primary-800"
+          >
             <svg
               xmlns="http://www.w3.org/2000/svg"
               class="h-8 w-8 mx-auto mb-4 text-primary-500"
@@ -139,16 +164,18 @@ const attendeeCount = computed(
             >
               <path
                 fill-rule="evenodd"
-                d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z"
+                d="M6 2a1 1 0 10-2 0v3.586l-1.293-1.293a1 1 0 10-1.414 1.414l3 3a1 1 0 001.414 0l3-3a1 1 0 00-1.414-1.414L11 11.586V8z"
                 clip-rule="evenodd"
               />
             </svg>
-            <h3 class="font-semibold text-gray-800 mb-3">Fecha y Hora</h3>
-            <p class="text-primary-700 font-medium">{{ event.date }}</p>
-            <p class="text-primary-700 font-medium">{{ event.time }}</p>
+            <h3 class="font-semibold text-gray-800 dark:text-gray-100 mb-3">Fecha y Hora</h3>
+            <p class="text-primary-700 dark:text-primary-300 font-medium">{{ event.date }}</p>
+            <p class="text-primary-700 dark:text-primary-300 font-medium">{{ event.time }}</p>
           </div>
 
-          <div class="text-center p-6 bg-secondary-50 rounded-xl border border-secondary-100">
+          <div
+            class="text-center p-6 bg-secondary-50 dark:bg-secondary-900/30 rounded-xl border border-secondary-100 dark:border-secondary-800"
+          >
             <svg
               xmlns="http://www.w3.org/2000/svg"
               class="h-8 w-8 mx-auto mb-4 text-secondary-500"
@@ -161,19 +188,24 @@ const attendeeCount = computed(
                 clip-rule="evenodd"
               />
             </svg>
-            <h3 class="font-semibold text-gray-800 mb-3">Ubicación</h3>
-            <p class="text-secondary-700 font-medium">{{ event.location.building }}</p>
-            <p class="text-secondary-700 font-medium">{{ event.location.room }}</p>
+            <h3 class="font-semibold text-gray-800 dark:text-gray-100 mb-3">Ubicación</h3>
+            <p class="text-secondary-700 dark:text-secondary-300 font-medium">
+              {{ event.location }}
+            </p>
           </div>
         </div>
 
         <div class="space-y-4">
           <!-- Featured Participants -->
-          <div class="text-center bg-gray-50 rounded-xl p-6 border border-gray-100">
+          <div
+            class="text-center bg-gray-50 dark:bg-gray-800 rounded-xl p-6 border border-gray-100 dark:border-gray-700"
+          >
             <div class="flex items-center justify-center gap-2 mb-6">
-              <h3 class="font-semibold text-gray-800">Total de Asistentes</h3>
+              <h3 class="font-semibold text-gray-800 dark:text-gray-100">
+                Total de Asistentes
+              </h3>
               <span
-                class="px-3 py-1 bg-blue-100 text-blue-800 rounded-full text-sm font-medium"
+                class="px-3 py-1 bg-blue-100 dark:bg-blue-900/50 text-blue-800 dark:text-blue-300 rounded-full text-sm font-medium"
               >
                 {{ attendeeCount }} Asistentes Registrados
               </span>
@@ -182,13 +214,17 @@ const attendeeCount = computed(
               <div
                 v-for="participant in presentersAndOrganizers"
                 :key="participant.name"
-                class="flex items-center gap-2 px-4 py-3 bg-white rounded-lg border border-gray-200"
+                class="flex items-center gap-2 px-4 py-3 bg-white dark:bg-gray-700 rounded-lg border border-gray-200 dark:border-gray-600"
               >
-                <span class="font-medium text-gray-900">{{ participant.name }}</span>
+                <span class="font-medium text-gray-900 dark:text-gray-100">{{
+                  participant.name
+                }}</span>
                 <span
                   :class="{
-                    'bg-purple-100 text-purple-800': participant.role === 'presenter',
-                    'bg-green-100 text-green-800': participant.role === 'organizer',
+                    'bg-purple-100 dark:bg-purple-900/50 text-purple-800 dark:text-purple-300':
+                      participant.role === 'presenter',
+                    'bg-green-100 dark:bg-green-900/50 text-green-800 dark:text-green-300':
+                      participant.role === 'organizer',
                   }"
                   class="px-2 py-0.5 rounded-full text-xs font-medium capitalize"
                 >
@@ -199,9 +235,13 @@ const attendeeCount = computed(
           </div>
         </div>
 
-        <div class="text-center text-sm text-gray-400">
+        <div class="text-center text-sm text-gray-400 dark:text-gray-500">
           Powered by
-          <span class="text-primary hover:text-primary-light">UniEncuentros ❤️</span>
+          <span
+            class="text-primary hover:text-primary-light dark:text-primary-400 dark:hover:text-primary-300"
+          >
+            UniEncuentros ❤️
+          </span>
         </div>
       </div>
     </div>
