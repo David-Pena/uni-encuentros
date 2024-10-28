@@ -1,14 +1,5 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import { useAuth } from 'vue-clerk'
-import Landing from '../views/Landing.vue'
-import EventList from '../views/EventList.vue'
-import EventCreate from '../views/EventCreate.vue'
-import Presenters from '../views/Presenters.vue'
-import LogoManager from '../views/LogoManager.vue'
-import Settings from '../views/Settings.vue'
-import DashboardLayout from '../layouts/DashboardLayout.vue'
-import EventInvitation from '../views/EventInvitation.vue'
-import PreviewView from '../views/Preview.vue'
 
 const router = createRouter({
   history: createWebHistory(),
@@ -16,50 +7,52 @@ const router = createRouter({
     {
       path: '/',
       name: 'landing',
-      component: Landing,
+      component: () => import('../views/Landing.vue'),
       meta: { requiresAuth: false }
     },
     {
       path: '/dashboard',
-      component: DashboardLayout,
+      component: () => import('../layouts/DashboardLayout.vue'),
       meta: { requiresAuth: true },
       children: [
         {
           path: '',
           name: 'events',
-          component: EventList
+          component: () => import(/* webpackChunkName: "events" */ '../views/EventList.vue')
         },
         {
           path: 'create',
           name: 'create',
-          component: EventCreate
+          component: () => import(/* webpackChunkName: "events" */ '../views/EventCreate.vue')
         },
         {
           path: 'preview/:id',
           name: 'preview',
-          component: PreviewView
+          component: () => import(/* webpackChunkName: "events" */ '../views/Preview.vue')
         },
+        // Separate chunk for presenter management
         {
           path: 'presenters',
           name: 'presenters',
-          component: Presenters
+          component: () => import(/* webpackChunkName: "presenters" */ '../views/Presenters.vue')
+        },
+        // Separate chunk for settings and logos
+        {
+          path: 'settings',
+          name: 'settings',
+          component: () => import(/* webpackChunkName: "settings" */ '../views/Settings.vue')
         },
         {
           path: 'logos',
           name: 'logos',
-          component: LogoManager
-        },
-        {
-          path: 'settings',
-          name: 'settings',
-          component: Settings
+          component: () => import(/* webpackChunkName: "settings" */ '../views/LogoManager.vue')
         }
       ]
     },
     {
       path: '/invite/:id',
       name: 'invitation',
-      component: EventInvitation,
+      component: () => import('../views/EventInvitation.vue'),
       meta: { requiresAuth: false }
     }
   ]

@@ -26,6 +26,7 @@ const events = ref<Event[]>([
       { name: "Prof. John Doe", role: "organizer" },
     ],
     attendees: 45,
+    participants: [],
   },
   {
     id: 2,
@@ -40,6 +41,7 @@ const events = ref<Event[]>([
       { name: "Prof. John Doe", role: "organizer" },
     ],
     attendees: 30,
+    participants: [],
   },
 ]);
 
